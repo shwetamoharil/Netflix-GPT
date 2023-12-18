@@ -2,8 +2,31 @@ import DropdownContent from "../common/DropdownContent";
 import Dropdown from "../Icons/Dropdown";
 import { dropdown_menu } from "../utils/dropdown_menu";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { userActions } from "../store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const { addUser, removeUser } = userActions;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid, email, displayName }));
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+  }, []);
+
   const user = useSelector((state) => state.user);
   return (
     <>
