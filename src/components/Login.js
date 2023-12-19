@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../store/userSlice";
 import { useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { BACKGROUND_IMG } from "../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -77,11 +78,7 @@ const Login = () => {
     <div className="relative">
       <Header />
       <div className="relative">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/ab4b0b22-2ddf-4d48-ae88-c201ae0267e2/0efe6360-4f6d-4b10-beb6-81e0762cfe81/IN-en-20231030-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-          alt="background-logo"
-          className="h-[100vh] w-[100%]"
-        />
+        <img src={BACKGROUND_IMG} alt="background-logo" className="h-[100vh] w-[100%]" />
         <div className="absolute bg-black py-10  top-[25%] mx-auto right-0 left-0 w-3/12 bg-opacity-80 rounded-lg">
           <form className="text-white p-12">
             <h1 className="font-bold text-3xl py-2  my-2 w-full">{isSignInForm ? "Sign In" : "Sign Up"}</h1>
